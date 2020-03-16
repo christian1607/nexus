@@ -3,7 +3,7 @@
 USER=nexus
 GROUP=nexus
 SERVICE_NAME=nexus
-WORK_DIR=/app
+WORK_DIR=/mnt/nexus_data/nexus
 NEXUS_NAME=nexus
 URL_SONATYPE=https://download.sonatype.com/nexus/3/latest-unix.tar.gz
 
@@ -32,8 +32,29 @@ if ! getent passwd $USER > /dev/null 2>&1; then
     sudo chown -R $USER:$GROUP $WORK_DIR/sonatype-work
 fi
 
-sudo echo  run_as_user="$USER" >> $WORK_DIR/$NEXUS_NAME/bin/nexus.rc
+sudo echo  run_as_user="$USER" > $WORK_DIR/$NEXUS_NAME/bin/nexus.rc
+sudo echo "$WORK_DIR/$NEXUS_NAME/etc/nexus.properties"
 
+sudo echo "PRUEBA"
+sudo cat <<EOF > $WORK_DIR/$NEXUS_NAME/etc/nexus.properties
+
+## DO NOT EDIT - CUSTOMIZATIONS BELONG IN $WORK_DIR/$NEXUS_NAME/etc/nexus.properties
+##
+# Jetty section
+application-port=8081
+application-host=0.0.0.0
+nexus-context-path=/
+
+# Nexus section
+nexus-edition=nexus-pro-edition
+nexus-features=\
+nexus-pro-feature
+nexus.hazelcast.discovery.isEnabled=true
+
+EOF
+
+
+sudo echo "PRUEBA2"
 #sudo touch /etc/systemd/system/$SERVICE_NAME.service
 sudo cat <<EOF > /etc/systemd/system/$SERVICE_NAME.service
 [Unit]

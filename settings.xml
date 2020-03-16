@@ -7,18 +7,20 @@
     <servers>   
         <server>
             <id>nexus</id>
-            <username>nexus</username>
-            <password>nexus</password>
+            <username>######</username>
+            <password>####3</password>
         </server>
-        
+    
+
     </servers>  
     <mirrors>  
         <mirror>  
         <!--This sends everything else to /public -->  
         <id>nexus</id>  
         <mirrorOf>*</mirrorOf>  
-        <url>http://localhost:8081/repository/proxy-maven/</url>
+        <url>http://artifactory.farmaciasperuanas.pe:8081/repository/maven-public/</url>
         </mirror>  
+
     </mirrors>  
     <profiles>  
         <profile>  
@@ -35,10 +37,10 @@
             </repositories>  
             <pluginRepositories>  
                 <pluginRepository>  
-                <id>central</id>  
-                <url>http://central</url>  
-                <releases><enabled>true</enabled></releases>  
-                <snapshots><enabled>true</enabled></snapshots>  
+                    <id>central</id>  
+                    <url>http://central</url>  
+                    <releases><enabled>true</enabled></releases>  
+                    <snapshots><enabled>true</enabled></snapshots>  
                 </pluginRepository>  
             </pluginRepositories>  
         </profile>  
